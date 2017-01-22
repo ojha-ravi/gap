@@ -1,13 +1,5 @@
 package main
 
-import "fmt"
-
-func main() {
-	a := []int{1, 2, 2}
-	b := []int{2, 5}
-	fmt.Println(combineArray(a, b))
-}
-
 func combineArray(a []int, b []int) []int {
 	var res []int
 
