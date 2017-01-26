@@ -1,13 +1,9 @@
 package main
 
-import (
-	"fmt"
-	"os"
-	"strconv"
-)
+import "fmt"
 
 // O(n)
-func findSumBF(arr []int, sum int) bool {
+func findSumInArrayBF(arr []int, sum int) bool {
 	i, j := 0, len(arr)-1
 	for i <= j {
 		t := arr[i] + arr[j]
@@ -23,11 +19,11 @@ func findSumBF(arr []int, sum int) bool {
 	return false
 }
 
-func findSumBST(arr []int, sum int) bool {
+func findSumInArrayBST(arr []int, sum int) bool {
 	i := 0
 	for i < len(arr) {
 		t := sum - arr[i]
-		if findSumBST_Util(arr[i+1:], t) {
+		if findSumInArrayBST_Util(arr[i+1:], t) {
 			return true
 		}
 		i++
@@ -36,7 +32,7 @@ func findSumBST(arr []int, sum int) bool {
 }
 
 // nlg(n)
-func findSumBST_Util(arr []int, sum int) bool {
+func findSumInArrayBST_Util(arr []int, sum int) bool {
 	l := len(arr)
 	m := l / 2
 	if l == 1 {
@@ -46,15 +42,15 @@ func findSumBST_Util(arr []int, sum int) bool {
 	}
 
 	if arr[m] > sum {
-		return findSumBST_Util(arr[:m], sum)
+		return findSumInArrayBST_Util(arr[:m], sum)
 	} else if arr[m] < sum {
-		return findSumBST_Util(arr[m:], sum)
+		return findSumInArrayBST_Util(arr[m:], sum)
 	} else {
 		return true
 	}
 }
 
-func findSumHash(arr []int, sum int) bool {
+func findSumInArrayHash(arr []int, sum int) bool {
 	l := len(arr)
 	i := 0
 	hmap := [1000]int{}
@@ -73,7 +69,7 @@ func findSumHash(arr []int, sum int) bool {
 
 // Sub Array with given sum
 // o(n)
-func findSumSubArray(arr []int, sum int) (int, int) {
+func findSubArraySumInArray(arr []int, sum int) string {
 	curr := arr[0]
 	i, l := 1, len(arr)
 	start := 0
@@ -87,21 +83,20 @@ func findSumSubArray(arr []int, sum int) (int, int) {
 			}
 		}
 		if curr == sum {
-			return start, i
+			return fmt.Sprintf("%v-%v", start, i)
 		}
 		i++
 	}
-	return -1, -1
+	return fmt.Sprintf("%v-%v", -1, -1)
 }
 
-func main() {
-	args := os.Args
-	sum, _ := strconv.Atoi(args[1])
-	arr := []int{2, 4, 6, 9, 10, 12, 16, 20}
-	fmt.Println(findSumBF(arr, sum))
-	fmt.Println(findSumBST(arr, sum))
-	fmt.Println(findSumHash(arr, sum))
+// func main() {
+// 	args := os.Args
+// 	sum, _ := strconv.Atoi(args[1])
+// 	arr := []int{2, 4, 6, 9, 10, 12, 16, 20}
+// 	fmt.Println(findSumInArrayBF(arr, sum))
+// 	fmt.Println(findSumInArrayBST(arr, sum))
+// 	fmt.Println(findSumInArrayHash(arr, sum))
 
-	s, e := findSumSubArray(arr, 25)
-	fmt.Println(s, e)
-}
+// 	fmt.Println(findSubArraySumInArray(arr, 25))
+// }

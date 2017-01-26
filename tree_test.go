@@ -12,6 +12,7 @@ type TestData struct {
 	in   []int
 	pre  []int
 	post []int
+	min  []int
 }
 
 var testData = []TestData{
@@ -20,11 +21,13 @@ var testData = []TestData{
 		[]int{1, 2, 3, 4, 5, 6},
 		[]int{4, 1, 3, 2, 5, 6},
 		[]int{2, 3, 1, 6, 5, 4},
+		[]int{6, 5, 4, 3, 2, 1},
 	},
 	{
 		[]int{1, 2, 3, 4, 5, 6},
 		[]int{1, 2, 3, 4, 5, 6},
 		[]int{1, 2, 3, 4, 5, 6},
+		[]int{6, 5, 4, 3, 2, 1},
 		[]int{6, 5, 4, 3, 2, 1},
 	},
 }
@@ -49,6 +52,19 @@ func Test_inOrder(t *testing.T) {
 		postOrder(tree, &res)
 		if !reflect.DeepEqual(res, td.post) {
 			t.Errorf("postOrder(tree, arr) = %v, want %v", res, td.post)
+		}
+	}
+}
+
+func Test_mirror(t *testing.T) {
+	for _, td := range testData {
+		tree := createBST(td.inp)
+		mirror(&tree)
+
+		var res []int
+		inOrder(tree, &res)
+		if !reflect.DeepEqual(res, td.min) {
+			t.Errorf("inOrder(tree, arr) = %v, want %v", res, td.in)
 		}
 	}
 }

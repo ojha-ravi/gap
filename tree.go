@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 type node struct {
 	lhs *node
 	rhs *node
@@ -74,3 +78,24 @@ func postOrder(root *node, r *[]int) {
 // 		fm
 // 	}
 // }
+
+func mirror(root **node) {
+	if *root == nil {
+		return
+	}
+	mirror(&((*root).lhs))
+	mirror(&((*root).rhs))
+	(*root).lhs, (*root).rhs = (*root).rhs, (*root).lhs
+}
+
+func main() {
+	var res []int
+	tree := createBST([]int{1, 2, 3, 4, 5, 6})
+	inOrder(tree, &res)
+	fmt.Println(res)
+
+	res = []int{}
+	mirror(&tree)
+	inOrder(tree, &res)
+	fmt.Println(res)
+}
