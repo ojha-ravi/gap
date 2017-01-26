@@ -26,3 +26,12 @@ func combineArray(a []int, b []int) []int {
 	}
 	return res
 }
+
+func median(res []int) int {
+	len := len(res)
+	if len%2 == 0 {
+		return res[len/2]
+	} else {
+		return res[len/2+1]
+	}
+}

@@ -68,3 +68,9 @@ func postOrder(root *node, r *[]int) {
 	postOrder(root.rhs, r)
 	*r = append(*r, root.val)
 }
+
+// func inOrderWithoutRec(root *node)  {
+// 	for root != nil {
+// 		fm
+// 	}
+// }
