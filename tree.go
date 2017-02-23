@@ -1,9 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
-
 type node struct {
 	lhs *node
 	rhs *node
@@ -88,14 +84,46 @@ func mirror(root **node) {
 	(*root).lhs, (*root).rhs = (*root).rhs, (*root).lhs
 }
 
-func main() {
-	var res []int
-	tree := createBST([]int{1, 2, 3, 4, 5, 6})
-	inOrder(tree, &res)
-	fmt.Println(res)
-
-	res = []int{}
-	mirror(&tree)
-	inOrder(tree, &res)
-	fmt.Println(res)
+func height(node *node) int {
+	if node == nil {
+		return 0
+	}
+	return 1 + max(height(node.lhs), height(node.rhs))
 }
+
+func max(a int, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}
+
+func isBalancedBST(root *node) bool {
+	lh := height(root.lhs)
+	rh := height(root.rhs)
+
+	if (abs(lh, rh) <= 1) && isBalancedBST(root.lhs) && isBalancedBST(root.rhs) {
+		return true
+	}
+
+	return false
+}
+
+func abs(a, b int) int {
+	if a >= b {
+		return a - b
+	}
+	return b - a
+}
+
+// func main() {
+// 	var res []int
+// 	tree := createBST([]int{1, 2, 3, 4, 5, 6})
+// 	inOrder(tree, &res)
+// 	fmt.Println(res)
+
+// 	res = []int{}
+// 	mirror(&tree)
+// 	inOrder(tree, &res)
+// 	fmt.Println(res)
+// }
